@@ -7,10 +7,15 @@ export const getSongs = createAsyncThunk(
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId
       );
+
+      console.log("response", response.ok);
+
       if (response.ok) {
         let music = await response.json();
 
-        return music.album.tracks.data;
+        console.log(music);
+
+        return music;
       } else {
         return thunkAPI.rejectWithValue();
       }
