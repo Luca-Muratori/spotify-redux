@@ -1,8 +1,26 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addSongs } from "../slices/queue/queueSlice";
 
-const Song = ({ track }) => (
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    songsProp: (track) => {
+      dispatch(addSongs(track));
+    },
+  };
+};
+
+const Song = ({ track, songsProp }) => (
   <div className="py-3 trackHover">
-    <span className="card-title trackHover px-3" style={{ color: "white" }}>
+    <span
+      onClick={() => songsProp(track)}
+      className="card-title trackHover px-3"
+      style={{ color: "white" }}
+    >
       {track.title}
     </span>
     <small className="duration" style={{ color: "white" }}>
@@ -14,4 +32,4 @@ const Song = ({ track }) => (
   </div>
 );
 
-export default Song;
+export default connect(mapStateToProps, mapDispatchToProps)(Song);

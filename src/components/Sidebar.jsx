@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import Queue from "./Queue";
 
 class Sidebar extends React.Component {
   state = {
@@ -85,6 +86,7 @@ class Sidebar extends React.Component {
               </div>
             </div>
           </div>
+          <Queue />
 
           <div className="nav-btn">
             <button className="btn" id="signup-btn" type="button">
