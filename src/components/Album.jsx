@@ -1,27 +1,29 @@
 import React from "react";
 import Song from "./Song";
 import { Row } from "react-bootstrap";
-
+// import Queue from "./Queue";
 import { connect } from "react-redux";
 import { addSongs } from "../slices/queue/queueSlice";
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    songArray: state.queue.songs,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    songsProp: (track) => {
-      dispatch(addSongs(track));
+    songsProp: (albumId) => {
+      dispatch(addSongs(albumId));
     },
   };
 };
 
 class Album extends React.Component {
-  state = {
-    album: {},
-    songs: [],
-  };
+  // state = {
+  //   album: {},
+  //   songs: [],
+  // };
 
   componentDidMount = async () => {
     let albumId = this.props.match.params.id;
@@ -30,28 +32,27 @@ class Album extends React.Component {
       "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
       "X-RapidAPI-Key": "222902beabmshb95a65b737cead6p1f3ac9jsn23ced94c0d20",
     });
+    this.props.songsProp(albumId);
 
-    try {
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
-        {
-          method: "GET",
-          headers,
-        }
-      );
+    // try {
+    //   let response = await fetch(
+    //     "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
+    //     {
+    //       method: "GET",
+    //       headers,
+    //     }
+    //   );
 
-      if (response.ok) {
-        let album = await response.json();
-        this.setState({
-          album,
-          songs: album.tracks.data,
-        });
-        console.log("album", this.state.album);
-        console.log("songs", this.state.songs);
-      }
-    } catch (exception) {
-      console.log(exception);
-    }
+    //   if (response.ok) {
+    //     let album = await response.json();
+    //     this.setState({
+    //       album,
+    //       songs: album.tracks.data,
+    //     });
+    //   }
+    // } catch (exception) {
+    //   console.log(exception);
+    // }
   };
 
   render() {
@@ -83,12 +84,7 @@ class Album extends React.Component {
                 </p>
               </div>
               <div className="mt-4 text-center">
-                <button
-                  onClick={(e) => this.props.songsProp(this.state.songs)}
-                  id="btnPlay"
-                  className="btn btn-success"
-                  type="button"
-                >
+                <button id="btnPlay" className="btn btn-success" type="button">
                   Play
                 </button>
               </div>

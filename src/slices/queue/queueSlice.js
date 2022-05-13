@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getSongs = createAsyncThunk(
-  "song/getSongs",
-  async (url, thunkAPI) => {
+  "queue/getSongs",
+  async (albumId, thunkAPI) => {
     try {
-      let response = await fetch(url);
+      let response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId
+      );
       if (response.ok) {
-        let data = await response.json();
-        return data.data;
+        let music = await response.json();
+
+        return music.album.tracks.data;
       } else {
         return thunkAPI.rejectWithValue();
       }
@@ -19,7 +22,7 @@ export const getSongs = createAsyncThunk(
 
 const queueSlice = createSlice({
   name: "queue",
-  initialState: { songs: [], loading: false, error: false },
+  initialState: { songs: [] },
   reducers: {
     addSongs: (state, actions) => {
       return {
