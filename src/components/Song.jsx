@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    songsProp: (track) => {
+    addSongs: (track) => {
       dispatch(addSongs(track));
     },
     addFavorite: (f) => dispatch(addFavorite(f)),
