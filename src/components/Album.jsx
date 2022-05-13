@@ -2,6 +2,21 @@ import React from "react";
 import Song from "./Song";
 import { Row } from "react-bootstrap";
 
+import { connect } from "react-redux";
+import { addSongs } from "../slices/queue/queueSlice";
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    songsProp: (track) => {
+      dispatch(addSongs(track));
+    },
+  };
+};
+
 class Album extends React.Component {
   state = {
     album: {},
@@ -31,6 +46,8 @@ class Album extends React.Component {
           album,
           songs: album.tracks.data,
         });
+        console.log("album", this.state.album);
+        console.log("songs", this.state.songs);
       }
     } catch (exception) {
       console.log(exception);
@@ -66,7 +83,12 @@ class Album extends React.Component {
                 </p>
               </div>
               <div className="mt-4 text-center">
-                <button id="btnPlay" className="btn btn-success" type="button">
+                <button
+                  onClick={(e) => this.props.songsProp(this.state.songs)}
+                  id="btnPlay"
+                  className="btn btn-success"
+                  type="button"
+                >
                   Play
                 </button>
               </div>
@@ -87,4 +109,4 @@ class Album extends React.Component {
   }
 }
 
-export default Album;
+export default connect(mapStateToProps, mapDispatchToProps)(Album);
