@@ -13,4 +13,4 @@ const queueSlice = createSlice({
 });
 
 export default queueSlice.reducer;
-export const { addSong } = queueSlice.reducer;
+export const { addSongs } = queueSlice.actions;
