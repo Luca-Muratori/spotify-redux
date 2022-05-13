@@ -10,9 +10,7 @@ const favoriteSlice = createSlice({
     },
     removeFromFavorite: (state, action) => {
       return {
-        songs: state.songs.filter(
-          (song) => state.favorites.title !== action.payload
-        ),
+        favorites: state.favorites.filter((song, i) => i !== action.payload),
       };
     },
   },
