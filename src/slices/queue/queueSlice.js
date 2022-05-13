@@ -1,5 +1,16 @@
-const queueSlice = () => {
-  return <div>queueSlice</div>;
-};
+import { createSlice } from "@reduxjs/toolkit";
 
-export default queueSlice;
+const queueSlice = createSlice({
+  name: "queue",
+  initialState: { songs: [] },
+  reducers: {
+    addSongs: (state, actions) => {
+      return {
+        songs: [...state.songs, actions.payload],
+      };
+    },
+  },
+});
+
+export default queueSlice.reducer;
+export const { addSong } = queueSlice.reducer;
