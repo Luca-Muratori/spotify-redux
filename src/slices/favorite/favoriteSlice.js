@@ -1,15 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 const favoriteSlice = createSlice({
   name: "favorite",
-  initialState: { songs: [] },
+  initialState: { favorites: [] },
   reducers: {
-    addSongs: (state, actions) => {
+    addFavorite: (state, action) => {
       return {
-        songs: [...state.songs, actions.payload],
+        favorites: [...state.favorites, action.payload],
+      };
+    },
+    removeFromFavorite: (state, action) => {
+      return {
+        songs: state.songs.filter(
+          (song) => state.favorites.title !== action.payload
+        ),
       };
     },
   },
 });
 
 export default favoriteSlice.reducer;
-export const { addSong } = favoriteSlice.reducer;
+export const { addFavorite, removeFromFavorite } = favoriteSlice.actions;

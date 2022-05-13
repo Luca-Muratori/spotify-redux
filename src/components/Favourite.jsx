@@ -1,11 +1,20 @@
 import React from "react";
 import { Row } from "react-bootstrap";
+import { removeFromFavorite } from "../slices/favorite/favoriteSlice.js";
+import { connect } from "react-redux";
+import Song from "./Song.jsx";
+
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = (dispatch) => ({
+  removeFromFavorite: (f) => dispatch(removeFromFavorite(f)),
+});
 
 class Favourite extends React.Component {
-  state = {
-    album: {},
-    songs: [],
-  };
+  // state = {
+  //   album: {},
+  //   songs: [],
+  // };
 
   render() {
     return (
@@ -20,33 +29,11 @@ class Favourite extends React.Component {
           </div>
         </Row>
         <Row>
-          {this.state.album.cover && (
-            <div className="col-md-3 pt-5 text-center" id="img-container">
-              <img
-                src={this.state.album.cover}
-                className="card-img img-fluid"
-                alt="Album"
-              />
-              <div className="mt-4 text-center">
-                <p className="album-title">{this.state.album.title}</p>
-              </div>
-              <div className="text-center">
-                <p className="artist-name">
-                  {this.state.album.artist ? this.state.album.artist.name : ""}
-                </p>
-              </div>
-              <div className="mt-4 text-center">
-                <button id="btnPlay" className="btn btn-success" type="button">
-                  Play
-                </button>
-              </div>
-            </div>
-          )}
           <div className="col-md-8 p-5">
             <Row>
               <div className="col-md-10 mb-5" id="trackList">
-                {this.state.songs.map((song) => (
-                  <songs track={song} key={song.id} />
+                {this.props.favorite.map((song) => (
+                  <Song track={song} key={song.id} />
                 ))}
               </div>
             </Row>
@@ -57,4 +44,4 @@ class Favourite extends React.Component {
   }
 }
 
-export default Favourite;
+export default connect(mapStateToProps, mapDispatchToProps)(Favourite);
