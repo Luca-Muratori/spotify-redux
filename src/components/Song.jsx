@@ -20,11 +20,7 @@ const Song = ({ track, addFavorite, songsProp }) => {
   console.log(track);
   return (
     <div className="py-3 trackHover">
-      <span
-        onClick={() => addFavorite(track[0])}
-        className="card-title trackHover px-3"
-        style={{ color: "white" }}
-      >
+      <span className="card-title trackHover px-3" style={{ color: "white" }}>
         {track.title}
       </span>
       <span onClick={() => addFavorite(track)}>
